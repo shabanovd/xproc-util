@@ -234,6 +234,16 @@
         <tr:unescape-uri attribute-names="os-path"/>
       </p:when>
 
+      <p:when test="matches($catalog-resolved-uri, '^xmldb:/')">
+        <p:documentation>XMLDB Filename</p:documentation>
+        <p:add-attribute match="/*" attribute-name="local-href">
+          <p:with-option name="attribute-value" select="$catalog-resolved-uri"/>
+        </p:add-attribute>
+        <p:add-attribute match="/*" attribute-name="os-path">
+          <p:with-option name="attribute-value" select="$catalog-resolved-uri"/>
+        </p:add-attribute>
+      </p:when>
+
       <p:when test="matches($catalog-resolved-uri, '^/')">
         <p:documentation>Unix Filename</p:documentation>
         <p:add-attribute match="/*" attribute-name="local-href">
@@ -245,17 +255,6 @@
         <tr:unescape-uri attribute-names="os-path"/>
       </p:when>
       
-      <p:when test="matches($catalog-resolved-uri, '^xmldb:', 'i')">
-        <p:documentation>eXist db resource path</p:documentation>
-        <p:add-attribute match="/*" attribute-name="local-href">
-          <p:with-option name="attribute-value" select="concat('xmldb:///', $catalog-resolved-uri)"/>
-        </p:add-attribute>
-        <p:add-attribute match="/*" attribute-name="os-path">
-          <p:with-option name="attribute-value" select="$catalog-resolved-uri"/>
-        </p:add-attribute>
-        <tr:unescape-uri attribute-names="os-path"/>
-      </p:when>
-
       <p:when test="matches($catalog-resolved-uri, '^[a-z]:', 'i')">
         <p:documentation>Windows path, either with forward or backward slashes.</p:documentation>
         <p:add-attribute match="/*" attribute-name="local-href">
